@@ -110,7 +110,8 @@
                 x:Name="tb1"
                 Grid.Row="0"
                 Grid.Column="1"
-                Width="200" />
+                Width="200" 
+                AutomationProperties.AutomationId="publisherInputBezeichnung"/>
 
             <TextBlock
                 Grid.Row="1"
@@ -123,14 +124,16 @@
                 Grid.Row="1"
                 Grid.Column="1"
                 Width="200"
-                Margin="0,10,0,0" />
+                Margin="0,10,0,0" 
+                AutomationProperties.AutomationId="publisherInputUrl"/>
 
             <Button
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
                 Margin="0,10,0,0"
                 Click="Button_Click_2"
-                Content="Speichern" />
+                Content="Speichern" 
+                AutomationProperties.AutomationId="publisherButtonSave"/>
             <Button
                 Grid.Row="3"
                 Grid.ColumnSpan="2"

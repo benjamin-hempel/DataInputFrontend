@@ -128,7 +128,8 @@
                         Height="18"
                         Margin="132,252,0,0"
                         HorizontalAlignment="Left"
-                        VerticalAlignment="Top" />
+                        VerticalAlignment="Top" 
+                        AutomationProperties.AutomationId="publicationsInputTyp"/>
                     <TextBox
                         x:Name="Beschreibung"
                         Width="200"
@@ -137,7 +138,8 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         AcceptsReturn="True"
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap" 
+                        AutomationProperties.AutomationId="publicationsInputBeschreibung"/>
                     <TextBox
                         x:Name="name"
                         Width="200"
@@ -145,7 +147,8 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Text=""
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"
+                        AutomationProperties.AutomationId="publicationsInputName"/>
                     <DatePicker
                         x:Name="DatePicker"
                         Width="200"
@@ -153,7 +156,8 @@
                         Margin="132,283,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        RenderTransformOrigin="-7.524,-0.835" />
+                        RenderTransformOrigin="-7.524,-0.835" 
+                        AutomationProperties.AutomationId="publicationsInputDatum"/>
                     <TextBlock
                         Margin="531,221,0,0"
                         HorizontalAlignment="Left"
@@ -166,7 +170,8 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Text=""
-                        TextWrapping="Wrap" />
+                        TextWrapping="Wrap"
+                        AutomationProperties.AutomationId="publicationsInputLink"/>
 
                     <TextBlock
                         Margin="531,252,0,0"
@@ -180,7 +185,8 @@
                         Margin="609,252,0,0"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
-                        DisplayMemberPath="Name" />
+                        DisplayMemberPath="Name"
+                        AutomationProperties.AutomationId="publicationsInputMedium"/>
                     <TextBlock
                         Margin="531,283,0,0"
                         HorizontalAlignment="Left"
@@ -207,7 +213,8 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Top"
                         Click="Button_Click_1"
-                        Content="Speichern" />
+                        Content="Speichern"
+                        AutomationProperties.AutomationId="publicationsButtonSave"/>
                     <Button
                         Width="301"
                         Margin="31,488,0,0"
@@ -227,6 +234,9 @@
                 <TabItem.Header>
                     Publisher
                 </TabItem.Header>
+                <AutomationProperties.AutomationId>
+                    publisherTab
+                </AutomationProperties.AutomationId>
                 <Frame x:Name="pubFrame" Source="PublisherPage.xaml" />
             </TabItem>
             <TabItem>
