@@ -134,6 +134,9 @@
     </Compile>
     <Compile Include="ProjectRepo.cs" />
     <Compile Include="ProjectRepoInstance.cs" />
+    <Compile Include="Zeiterfassung.xaml.cs">
+      <DependentUpon>Zeiterfassung.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Projects.xaml.cs">
       <DependentUpon>Projects.xaml</DependentUpon>
     </Compile>
@@ -160,6 +163,10 @@
     <Page Include="Page1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Zeiterfassung.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Projects.xaml">
       <SubType>Designer</SubType>
