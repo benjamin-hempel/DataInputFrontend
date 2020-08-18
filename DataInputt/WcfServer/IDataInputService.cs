@@ -86,5 +86,12 @@ namespace WcfServer
             get { return uid; }
             set { uid = value; }
         }
+
+        [DataMember]
+        public int Id
+        {
+            get { return id; }
+            set { id = value; }
+        }
     }
 }
