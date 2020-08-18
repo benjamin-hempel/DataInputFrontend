@@ -70,6 +70,7 @@ namespace DataInputt
                 timesListView.Items.Add(item);
             }
             TimeRepo.Times = timesList;
+            earnings.Text = client.CalculateEarnings(userId).ToString("C");
         }
 
                                         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -111,6 +112,7 @@ namespace DataInputt
                                             tb1.Text = String.Empty;
                                             projectsCombo.SelectedIndex = 0;
                                             tb5.Text = tb1.Text;
+                                            earnings.Text = client.CalculateEarnings(userId).ToString("C");
                                         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -129,11 +131,13 @@ namespace DataInputt
 
             timesListView.Items.Clear();
             timesList = client.GetTimes(userId).ToList();
+            timesList.Sort(new TimesComparer());
             foreach(var item in timesList)
             {
                 timesListView.Items.Add(item);
             }
             TimeRepo.Times = timesList;
+            earnings.Text = client.CalculateEarnings(userId).ToString("C");
         }
     }
 

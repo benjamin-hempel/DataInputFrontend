@@ -116,46 +116,57 @@
                 Content="Login" />
             <TextBlock Grid.Row="3" Grid.Column="0"></TextBlock>
 
-            <TextBlock Grid.Row="5" Margin="0,10,0,0">Start</TextBlock>
+            <TextBlock Grid.Row="4" Margin="0,10,0,0">Start</TextBlock>
             <TextBox
                 x:Name="tb1"
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="1"
                 Width="200"
                 Margin="0,10,0,0"/>
 
-            <TextBlock Grid.Row="6" Margin="0,10,0,0">Ende</TextBlock>
+            <TextBlock Grid.Row="5" Margin="0,10,0,0">Ende</TextBlock>
             <TextBox
                 x:Name="tb5"
-                Grid.Row="6"
+                Grid.Row="5"
                 Grid.Column="1"
                 Width="200"
                 Margin="0,10,0,0" />
 
             <TextBlock
-                Grid.Row="7"
+                Grid.Row="6"
                 Grid.Column="0"
                 Margin="0,10,0,0">
                 Projekt
             </TextBlock>
             <ComboBox 
                 x:Name="projectsCombo"
-                Grid.Row="7"
+                Grid.Row="6"
                 Grid.Column="1"
                 Margin="0,10,32,0"/>
 
             <Button
-                Grid.Row="9"
+                Grid.Row="7"
                 Grid.ColumnSpan="2"
                 Margin="0,10,0,0"
                 Click="Button_Click_2"
                 Content="Speichern" />
             <Button
-                Grid.Row="10"
+                Grid.Row="8"
                 Grid.ColumnSpan="2"
                 Margin="0,10,0,0"
                 Click="Button_Click_3"
                 Content="Zurücksetzen" />
+            <TextBlock Grid.Row="9"></TextBlock>
+            <TextBlock 
+                Grid.Row="10" 
+                Grid.Column="0">
+                Earnings
+            </TextBlock>
+            <TextBlock 
+                x:Name="earnings"
+                Grid.Row="10" 
+                Grid.Column="1">
+            </TextBlock>
         </Grid>
     </Grid>
 </Page>
