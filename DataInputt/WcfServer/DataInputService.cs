@@ -10,14 +10,8 @@ namespace WcfServer
 {
     public class DataInputService : IDataInputService
     {
-        public static List<InternalUser> Users { get; private set; }
-        public static List<Time> Times { get; private set; }
-
-        private DataInputService()
-        {
-            Users = new List<InternalUser>();
-            Times = new List<Time>();
-        }
+        public static List<InternalUser> Users = new List<InternalUser>();
+        public static List<Time> Times = new List<Time>();
 
         public int CreateUser(User user)
         {
@@ -29,14 +23,15 @@ namespace WcfServer
 
         public int Login(User user)
         {
-            var internalUser = Users.Find(x => x.Name == user.Name);
-            if (internalUser == null)
+            var internalUsers = Users.FindAll(x => x.Name == user.Name);
+            if (internalUsers.Count == 0)
                 return CreateUser(user);
 
-            if (user.Passwort == internalUser.Passwort)
-                return internalUser.uId;
-            else
-                return CreateUser(user);
+            foreach(var internalUser in internalUsers)
+                if (user.Passwort == internalUser.Passwort)
+                    return internalUser.uId;
+
+            return CreateUser(user);
         }
 
         public List<Time> GetTimes(int userId)
