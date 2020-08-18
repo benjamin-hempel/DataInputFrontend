@@ -62,7 +62,7 @@ namespace WcfServer
         [DataMember]
         public DateTime Start
         {
-            get { return Start; }
+            get { return start; }
             set { start = value; }
         }
 
