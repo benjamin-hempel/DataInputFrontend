@@ -41,7 +41,16 @@ namespace WcfServer
 
         public void AddTime(Time time, int userId)
         {
-            Times.Add(time);
+            var existingTime = Times.Find(x => x.Id == time.Id);
+            if (existingTime == null)
+                Times.Add(time);
+            else if (userId == -1)
+                Times.Remove(existingTime);
+            else
+            {
+                Times.Remove(existingTime);
+                Times.Add(time);
+            }               
         }
 
         public List<string> Projects()
