@@ -83,4 +83,11 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="EarningsCalculated">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="earnings" nillable="true" type="q6:ArrayOfKeyValueOfintdecimal" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
 </xs:schema>

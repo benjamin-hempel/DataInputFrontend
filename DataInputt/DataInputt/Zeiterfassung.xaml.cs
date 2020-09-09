@@ -17,13 +17,15 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ServiceModel;
+using System.Windows.Threading;
 
 namespace DataInputt
 {
     /// <summary>
     /// Interaktionslogik für Projects.xaml
     /// </summary>
-    public partial class Zeiterfassung : Page
+    [CallbackBehavior(ConcurrencyMode = ConcurrencyMode.Single, UseSynchronizationContext = false)]
+    public partial class Zeiterfassung : Page, IDataInputServiceCallback
     {
         private DataInputServiceClient client;
         private Delete delete;
@@ -37,7 +39,7 @@ namespace DataInputt
         public Zeiterfassung()
         {
             InitializeComponent();
-            client = new DataInputServiceClient();
+            client = new DataInputServiceClient(new InstanceContext(this));
             delete = Delete.GetInstance();
             projectsCombo.ItemsSource = client.Projects();
             projectsCombo.SelectedIndex = 0;
@@ -70,7 +72,6 @@ namespace DataInputt
                 timesListView.Items.Add(item);
             }
             TimeRepo.Times = timesList;
-            earnings.Text = client.CalculateEarnings(userId).ToString("C");
         }
 
                                         private void Button_Click_2(object sender, RoutedEventArgs e)
@@ -112,7 +113,6 @@ namespace DataInputt
                                             tb1.Text = String.Empty;
                                             projectsCombo.SelectedIndex = 0;
                                             tb5.Text = tb1.Text;
-                                            earnings.Text = client.CalculateEarnings(userId).ToString("C");
                                         }
 
         private void Button_Click_3(object sender, RoutedEventArgs e)
@@ -137,7 +137,12 @@ namespace DataInputt
                 timesListView.Items.Add(item);
             }
             TimeRepo.Times = timesList;
-            earnings.Text = client.CalculateEarnings(userId).ToString("C");
+        }
+
+        public void EarningsCalculated(Dictionary<int, decimal> earnings)
+        {
+            var e = earnings.ContainsKey(userId) == true ? earnings[userId].ToString("C") : "0 €";
+            Application.Current.Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() => this.earnings.Text = e));
         }
     }
 
