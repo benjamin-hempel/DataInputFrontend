@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Text;
 
 namespace WcfServer
 {
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerCall, ConcurrencyMode = ConcurrencyMode.Single)]
     public class DataInputService : IDataInputService
     {
         public static List<InternalUser> Users = new List<InternalUser>();
@@ -25,11 +27,20 @@ namespace WcfServer
         {
             var internalUsers = Users.FindAll(x => x.Name == user.Name);
             if (internalUsers.Count == 0)
+            {
+                CalculateEarnings();
                 return CreateUser(user);
+            }
+                
 
             foreach(var internalUser in internalUsers)
                 if (user.Passwort == internalUser.Passwort)
+                {
+                 CalculateEarnings();
                     return internalUser.uId;
+                }
+
+            CalculateEarnings();
 
             return CreateUser(user);
         }
@@ -50,7 +61,9 @@ namespace WcfServer
             {
                 Times.Remove(existingTime);
                 Times.Add(time);
-            }               
+            }
+
+            CalculateEarnings();
         }
 
         public List<string> Projects()
@@ -58,18 +71,31 @@ namespace WcfServer
             return new List<string> { "Projekt 1", "Projekt 2", "Projekt 3", "Projekt 4", "Projekt 5" };
         }
 
-        public decimal CalculateEarnings(int id)
+        private void CalculateEarnings()
         {
-            decimal hours = 0;
+            var result = new ConcurrentDictionary<int, decimal>();
+            var callback = OperationContext.Current.GetCallbackChannel<IDataCallback>();
 
-            var times = Times.FindAll(x => x.uId == id);
-            if(times == null)
-                return 0;
+            for (int i = 0; i < Times.Count; i++)
+            {
+                var t = Times[i];
+                if (result.ContainsKey(t.uId) == true)
+                {
+                    result[t.uId] += Convert.ToDecimal((t.End - t.Start).TotalHours);
+                }
+                else
+                {
+                    result.TryAdd(t.uId, Convert.ToDecimal((t.End - t.Start).TotalHours));
+                }
+            }
 
-            foreach(var time in times)
-                hours += Convert.ToDecimal((time.End - time.Start).TotalHours);
+            foreach (var u in Users)
+            {
+                if (result.ContainsKey(u.uId))
+                    result[u.uId] = result[u.uId] * 120;
+            }
 
-            return hours * 120;
+            callback.EarningsCalculated(result);
         }
     }
 

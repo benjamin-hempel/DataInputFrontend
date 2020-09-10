@@ -7,7 +7,7 @@ using System.Text;
 
 namespace WcfServer
 {
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IDataCallback))]
     public interface IDataInputService
     {
         [OperationContract]
@@ -24,9 +24,12 @@ namespace WcfServer
 
         [OperationContract]
         List<string> Projects();
+    }
 
-        [OperationContract]
-        decimal CalculateEarnings(int id);
+    public interface IDataCallback
+    {
+        [OperationContract(IsOneWay = true)]
+        void EarningsCalculated(IDictionary<int, decimal> earnings);
     }
 
     [DataContract]
